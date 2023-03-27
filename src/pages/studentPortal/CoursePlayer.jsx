@@ -1,4 +1,4 @@
-import { VideoList, VideoPlayer } from "../../components/student"
+import { VideoList, VideoPlayer } from "../../components/student";
 
 const CoursePlayer = () => {
     return (

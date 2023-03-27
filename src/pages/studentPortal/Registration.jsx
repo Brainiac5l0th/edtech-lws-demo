@@ -1,6 +1,6 @@
 import React from 'react'
 import { RegistrationForm } from '../../components/student'
-import { Header } from '../../components/ui/student'
+import Header from '../../components/ui/Header'
 
 
 const Registration = () => {
