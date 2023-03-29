@@ -1,6 +1,6 @@
 import React from 'react'
 import { LoginForm } from '../../components/student'
-import Header from '../../components/ui/Header'
+import Header from "../../components/ui/common/Header"
 
 
 const StudentLogin = () => {

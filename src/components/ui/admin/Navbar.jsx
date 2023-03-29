@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { LogoutIcon } from '../LogoutIcon'
+import { LogoutIcon } from '../common/LogoutIcon'
 
 const Navbar = () => {
     return (

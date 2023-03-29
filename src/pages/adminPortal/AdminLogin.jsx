@@ -1,6 +1,6 @@
 import React from 'react'
 import { LoginForm } from '../../components/admin'
-import Header from '../../components/ui/Header'
+import Header from "../../components/ui/common/Header"
 
 const AdminLogin = () => {
     return (

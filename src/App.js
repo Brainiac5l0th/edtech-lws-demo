@@ -25,7 +25,7 @@ function App() {
           <Route index element={<StudentLogin />} />
           <Route path="register" element={<Registration />} />
           <Route element={<StudentLayout />}>
-            <Route path="video/:id" element={<CoursePlayer />} />
+            <Route path="course-video/:id" element={<CoursePlayer />} />
             <Route path="leaderboard" element={<Leaderboard />} />
           </Route>
         </Route>

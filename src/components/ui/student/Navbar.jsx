@@ -1,12 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { LogoutIcon } from '../LogoutIcon'
+import { LogoutIcon } from '../common/LogoutIcon'
 
 const Navbar = () => {
+    const auth = useSelector(state => state.auth) || {};
+    console.log(auth);
     return (
         <nav className="shadow-md">
             <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
-                <Link to="video">
+                <Link to="course-video/1">
                     <img className="h-10" src="../assets/image/learningportal.svg" alt="lws logo" />
                 </Link>
                 <div className="flex items-center gap-3">
