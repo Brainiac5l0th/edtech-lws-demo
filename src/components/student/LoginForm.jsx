@@ -32,10 +32,10 @@ const LoginForm = () => {
             password: ""
         })
     }
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
-        await login({
+        login({
             email: loginData.email.trim(),
             password: loginData.password
         });
