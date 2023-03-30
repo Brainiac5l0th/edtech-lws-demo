@@ -7,9 +7,9 @@ const AssignmentMarkItem = ({ markInfo }) => {
     const [assignmentMark, setAssignmentMark] = useState(mark);
     const [updateAssignmentMark, { isLoading }] = useUpdateAssignmentMarkMutation();
 
-
     const formatedTitle = formatString(title);
     const formatedDate = formateDate(createdAt, true);
+
     //handlers
     const handleChange = (e) => {
         setAssignmentMark(e.target.value)
