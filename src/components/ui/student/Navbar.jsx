@@ -11,7 +11,7 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         dispatch(userLoggedOut());
-        localStorage.clear();
+        localStorage.removeItem("auth");
     }
     return (
         <nav className="shadow-md">

@@ -18,7 +18,7 @@ const apiSlice = createApi({
     const result = await baseQuery(args, api, extraOptions);
     if (result?.error?.status === 401) {
       api.dispatch(userLoggedOut());
-      localStorage.clear();
+      localStorage.removeItem("auth");
     }
     return result;
   },

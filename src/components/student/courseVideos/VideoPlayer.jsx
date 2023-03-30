@@ -46,14 +46,12 @@ const VideoPlayer = () => {
                 <p className="mt-4 text-sm text-slate-400 leading-6">
                     {description}
                 </p>
-
-
             </div>
         </>
     }
     return (
         <div className="col-span-full w-full space-y-8 lg:col-span-2">
-            <iframe id="frame" width="100%" className="aspect-video frameborder-0" src={url}
+            <iframe id="frame" width="100%" className="aspect-video frameborder-0" src={url ? url : ""}
                 title={title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen></iframe>

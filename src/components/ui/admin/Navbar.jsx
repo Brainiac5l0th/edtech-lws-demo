@@ -8,10 +8,10 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth) || {};
     const { name } = user || {};
-    
+
     const handleLogOut = () => {
         dispatch(userLoggedOut());
-        localStorage.clear();
+        localStorage.removeItem("auth");
     }
     return (
         <nav className="shadow-md">

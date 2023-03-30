@@ -1,15 +1,33 @@
-import React from 'react'
-import { DeleteIcon, EditIcon } from '../../ui/admin/svg/CommonIcons'
+import React from 'react';
+import { formatString } from '../../../utils/formatting';
+import { DeleteIcon, EditIcon } from '../../ui/admin/svg/CommonIcons';
 
-const QuizItem = () => {
+const QuizItem = ({ quizInfo }) => {
+    const { question, video_title } = quizInfo || {};
+
+    //formating titles
+    const formatQuestion = formatString(question);
+    const formatVideoTitle = formatString(video_title);
+
+
+    //handlers
+    const handleDelete = (e) => {
+
+    }
+    const handleEdit = (e) => {
+
+    }
     return (
         <tr>
-            <td className="table-td">Quiz 1 - JavaScript Interview Questions</td>
-            <td className="table-td">Debounce Function in JavaScript - JavaScript Job...</td>
+            <td className="table-td">{formatQuestion}</td>
+            <td className="table-td">{formatVideoTitle}</td>
             <td className="table-td flex gap-x-2 justify-center">
-                {/* have to wrap them into a button component  */}
-                {DeleteIcon}
-                {EditIcon}
+                <button onClick={handleDelete}>
+                    {DeleteIcon}
+                </button>
+                <button onClick={handleEdit}>
+                    {EditIcon}
+                </button>
             </td>
         </tr>
     )
