@@ -1538,3 +1538,12 @@ body {
   font-weight: 600;
   background-color: #fce7f3;
 }
+
+.current::before {
+  content: "";
+  position: relative;
+  width: 4px;
+  border-radius: 5px;
+  left: -2px;
+  background-color: #34b5fd;
+}

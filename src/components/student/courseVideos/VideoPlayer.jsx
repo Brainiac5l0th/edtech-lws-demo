@@ -1,26 +1,42 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { addCurrentVideo } from "../../../features/filters/filtersSlice";
+import { useGetVideoQuery } from '../../../features/videos/videosApi';
+import { formateDate } from '../../../utils/formatting';
+import Error from '../../ui/common/Error';
+import Loading from '../../ui/common/Loading';
+
 const VideoPlayer = () => {
+    const { id } = useParams();
+    const dispatch = useDispatch();
 
-    return (
-        <div className="col-span-full w-full space-y-8 lg:col-span-2">
-            <iframe id="frame" width="100%" className="aspect-video frameborder-0" src="https://www.youtube.com/embed/56zUkaXJnUA"
-                title="Things I wish I knew as a Junior Web Developer - Sumit Saha - BASIS SoftExpo 2023"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen></iframe>
+    dispatch(addCurrentVideo(id));
+    const { data: video, isLoading, isError } = useGetVideoQuery(id);
+    const { title, description, url, createdAt } = video || {};
 
+    // renderable content 
+    let content;
+    if (isLoading) content = <Loading />
+    else if (!isLoading && isError) content = <Error />
+    else if (!isLoading && !isError && !video.id) content = <Error message='No video Found' />
+    else if (!isLoading && !isError && video.id) {
+        //date in readable format
+        const formatedDate = formateDate(createdAt)
+        content = <>
             <div>
                 <h1 className="text-lg font-semibold tracking-tight text-slate-100">
-                    Things I wish I knew as a Junior Web Developer - Sumit Saha - BASIS SoftExpo 2023
+                    {title}
                 </h1>
                 <h2 className=" pb-4 text-sm leading-[1.7142857] text-slate-400">
-                    Uploaded on 23 February
-                    2020</h2>
+                    Uploaded on {formatedDate}
+                </h2>
 
                 <div className="flex gap-4">
-                    <a href="#"
+                    <button
                         className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary">
                         এসাইনমেন্ট
-                    </a>
+                    </button>
 
                     <a href="./Quiz.html"
                         className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary">কুইজে
@@ -28,18 +44,20 @@ const VideoPlayer = () => {
                         করুন</a>
                 </div>
                 <p className="mt-4 text-sm text-slate-400 leading-6">
-                    আপনারা যারা বিগিনার হিসেবে রিয়্যাক্ট জেস নিয়ে কাজ করা শুরু করেছেন, তারা রিয়্যাক্ট এর বেশ
-                    কিছু কনসেপ্ট ঠিক মতো আয়ত্ত না করতে পারার কারণে বিচিত্র কিছু সমস্যার সম্মুখীন হন এবং শেষ
-                    পর্যন্ত বুঝতে না
-                    পেরে হতাশ হয়ে পড়েন। তাদের জন্যই এই ভিডিওটি। এই ভিডিওতে আমি এমন ১০টি সমস্যার কথা তুলে ধরেছি
-                    যেগুলো
-                    বিগিনার হিসেবে আপনারা অহরহ সম্মুখীন হবেন। আশা করি ভিডিওটি দেখলে আপনাদের এই সমস্যাগুলো নিয়ে
-                    আর কনফিউশন
-                    থাকবেনা।
+                    {description}
                 </p>
 
 
             </div>
+        </>
+    }
+    return (
+        <div className="col-span-full w-full space-y-8 lg:col-span-2">
+            <iframe id="frame" width="100%" className="aspect-video frameborder-0" src={url}
+                title={title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen></iframe>
+            {content}
         </div>
     )
 }
