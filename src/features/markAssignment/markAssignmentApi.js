@@ -19,7 +19,10 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
         body: data,
       }),
 
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(
+        { id, data: userGivenData },
+        { dispatch, queryFulfilled }
+      ) {
         try {
           const result = await queryFulfilled;
           const { data, meta } = result || {};
@@ -44,7 +47,7 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
             dispatch(
               apiSlice.util.updateQueryData(
                 "getAssignmentMark",
-                arg.id.toString(),
+                id,
                 (draft) => {
                   draft.status = data.status;
                   draft.mark = data.mark;
