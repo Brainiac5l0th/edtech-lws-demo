@@ -40,6 +40,45 @@ const videosApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      async onQueryStarted(
+        { id, data: userGivenData },
+        { queryFulfilled, dispatch }
+      ) {
+        try {
+          const result = await queryFulfilled;
+          const { data, meta } = result || {};
+          if (data.id && meta.response?.status === 200) {
+            //update whole videos array
+            dispatch(
+              apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
+                const editableDraft = draft.find(
+                  (video) => Number(video.id) === Number(data.id)
+                );
+                editableDraft.title = data.title;
+                editableDraft.description = data.description;
+                editableDraft.url = data.url;
+                editableDraft.views = data.views;
+                editableDraft.duration = data.duration;
+                editableDraft.createdAt = data.createdAt;
+              })
+            );
+
+            //update video of that id
+            dispatch(
+              apiSlice.util.updateQueryData("getVideo", id, (draft) => {
+                draft.title = data.title;
+                draft.description = data.description;
+                draft.url = data.url;
+                draft.views = data.views;
+                draft.duration = data.duration;
+                draft.createdAt = data.createdAt;
+              })
+            );
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
     deleteVideo: builder.mutation({
       query: (id) => ({
@@ -62,5 +101,6 @@ export const {
   useGetVideoQuery,
   useAddVideoMutation,
   useUpdateVideoMutation,
+  useDeleteVideoMutation,
 } = videosApi;
 export default videosApi;

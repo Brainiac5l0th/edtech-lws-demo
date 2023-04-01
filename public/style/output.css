@@ -1676,3 +1676,17 @@ body {
     padding-right: 3.5rem;
   }
 }
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.bg-pink-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 39 119 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-pink-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(190 24 93 / var(--tw-bg-opacity));
+}

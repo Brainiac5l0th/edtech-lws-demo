@@ -28,3 +28,12 @@ export const formatDatetoISO = (dateString) => {
   const date = new Date(Date.UTC(year, month - 1, day));
   return date.toISOString();
 };
+
+// format iso date to dd/mm/yyyy
+export const formatIsoToDate = (isoDate) => {
+  const date = new Date(isoDate);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
