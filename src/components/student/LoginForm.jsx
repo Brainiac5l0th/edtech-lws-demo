@@ -18,10 +18,10 @@ const LoginForm = () => {
             // navigate("/course-video/${lastVideoId}");
             navigate("course-video/1");
         } else if (isError) {
-            setError("Invalid Username or Password")
+            if (responseError?.status === "FETCH_ERROR") setError("There was an server side Error!")
+            else setError("Invalid Username or Password!");
         }
     }, [isSuccess, isError, responseError, navigate])
-
     //handlers
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value })

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminLayout } from "./components/ui/admin";
-import AuthenticateRoute from "./components/ui/common/AuthenticateRoute";
-import PrivateRoute from "./components/ui/common/PrivateRoute";
-import PublicRoute from "./components/ui/common/PublicRoute";
+import AuthenticateRoute from "./components/ui/common/route/AuthenticateRoute";
+import PrivateRoute from "./components/ui/common/route/PrivateRoute";
+import PublicRoute from "./components/ui/common/route/PublicRoute";
 import { StudentLayout } from "./components/ui/student";
 import {
   AdminLogin,
