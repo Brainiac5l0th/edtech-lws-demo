@@ -6,7 +6,7 @@ import Modal from "../../ui/common/customModal/Modal";
 import EditVideoForm from './EditVideoForm';
 const VideosItem = ({ videoInfo }) => {
 
-    const [deleteVideo, { error }] = useDeleteVideoMutation();
+    const [deleteVideo] = useDeleteVideoMutation();
 
     const { id, title, description } = videoInfo || {};
     const [editMode, setEditMode] = useState(false)
