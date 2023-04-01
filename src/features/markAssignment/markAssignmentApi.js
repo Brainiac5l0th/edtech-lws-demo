@@ -44,7 +44,7 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
             dispatch(
               apiSlice.util.updateQueryData(
                 "getAssignmentMark",
-                data.id.toString(),
+                arg.id.toString(),
                 (draft) => {
                   draft.status = data.status;
                   draft.mark = data.mark;
