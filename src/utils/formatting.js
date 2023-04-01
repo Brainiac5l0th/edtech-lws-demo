@@ -37,3 +37,22 @@ export const formatIsoToDate = (isoDate) => {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 };
+
+export const findSuitableId = (array = []) => {
+  const highestId =
+    array?.length > 0
+      ? array.reduce((max, element) => Math.max(max, element?.id), 0)
+      : 0;
+  return highestId + 1;
+};
+
+export const filterAssignmentTitle = (assignments, title) => {
+  return `Assignment ${findSuitableId(assignments)} - ${title}`;
+};
+
+export const hasAssignment = (id, assignments) => {
+  const indexofAssignment = assignments.findIndex(
+    (assignment) => Number(assignment.id) === Number(id)
+  );
+  return indexofAssignment === -1 ? false : true;
+};
