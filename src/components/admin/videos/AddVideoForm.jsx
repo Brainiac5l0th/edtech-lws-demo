@@ -60,6 +60,10 @@ const AddVideoForm = ({ setMode }) => {
             createdAt: formatDatetoISO(addVideoData.createdAt),
         })
     }
+    const handleCancel = () => {
+        setMode(false);
+        resetForm();
+    }
 
     return (
         <div className='form-wrapper '>
@@ -111,6 +115,13 @@ const AddVideoForm = ({ setMode }) => {
 
 
                     <div className='py-3 text-right'>
+                        <button
+                            onClick={handleCancel}
+                            type='button'
+                            className='inline-flex justify-center mt-2 mr-2 py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500'
+                        >
+                            Cancel
+                        </button>
                         <button
                             type='submit'
                             disabled={isLoading}
