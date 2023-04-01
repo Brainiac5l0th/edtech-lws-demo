@@ -6,16 +6,15 @@ import Modal from "../../ui/common/customModal/Modal";
 import EditVideoForm from './EditVideoForm';
 const VideosItem = ({ videoInfo }) => {
 
-    const [deleteVideo] = useDeleteVideoMutation();
+    const [deleteVideo, { error }] = useDeleteVideoMutation();
 
     const { id, title, description } = videoInfo || {};
     const [editMode, setEditMode] = useState(false)
-
     //effects
     useEffect(() => {
 
     }, [])
-    
+
     //filter
     const formatedTitle = formatString(title);
     const formatedDescription = formatString(description);

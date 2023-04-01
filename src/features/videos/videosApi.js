@@ -22,7 +22,6 @@ const videosApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           const { data, meta } = result || {};
-          console.log(data);
           if (data.id && meta?.response?.status === 201) {
             //pesimistic update
             dispatch(
@@ -88,8 +87,16 @@ const videosApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          console.log(arg);
           const { data, meta } = result || {};
-          console.log(data, meta);
+          if (meta.response?.status === 200) {
+            dispatch(
+              apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
+                console.log("hello");
+                return draft.filter((video) => Number(video.id) !== Number(arg));
+              })
+            );
+          }
         } catch (error) {}
       },
     }),
