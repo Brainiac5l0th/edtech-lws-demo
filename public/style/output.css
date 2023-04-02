@@ -1639,6 +1639,10 @@ body {
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
+.bg-gray-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
 .inline-flex {
   display: inline-flex;
 }
@@ -1689,4 +1693,8 @@ body {
 .hover\:bg-pink-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(190 24 93 / var(--tw-bg-opacity));
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
 }

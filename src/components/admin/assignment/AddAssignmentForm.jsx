@@ -52,6 +52,11 @@ const AddAssignmentForm = ({ setMode }) => {
         videos?.length > 0 && videos?.map(
             video => <option key={video.id} value={video.id} disabled={hasAssignment(video.id, assignments)} >{video.title}</option>);
 
+    //css classnames
+    //disabled button if there is no videos or every video has assignment
+    const isDisabled = isLoading || videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments));
+    const btnClass = videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments)) ? "bg-gray-600 cursor-not-allowed" : "bg-sky-600 text-white  hover:bg-sky-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500";
+
 
     //handlers
     const resetForm = (e) => {
@@ -143,9 +148,9 @@ const AddAssignmentForm = ({ setMode }) => {
                             Cancel
                         </button>
                         <button
-                            disabled={isLoading}
+                            disabled={isDisabled}
                             type='submit'
-                            className='inline-flex justify-center mt-2 py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500'
+                            className={`inline-flex justify-center mt-2 py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md  ${btnClass}`}
                         >
                             Add Assignment
                         </button>

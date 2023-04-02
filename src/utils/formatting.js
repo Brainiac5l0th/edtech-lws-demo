@@ -38,6 +38,7 @@ export const formatIsoToDate = (isoDate) => {
   return `${day}/${month}/${year}`;
 };
 
+//find highest "id" value in an array
 export const findSuitableId = (array = []) => {
   const highestId =
     array?.length > 0
@@ -46,13 +47,15 @@ export const findSuitableId = (array = []) => {
   return highestId + 1;
 };
 
+//filtering video title to "Assignment [number] - title"
 export const filterAssignmentTitle = (assignments, title) => {
   return `Assignment ${findSuitableId(assignments)} - ${title}`;
 };
 
-export const hasAssignment = (id, assignments) => {
+// check if a video has already assigned with a task
+export const hasAssignment = (videoId, assignments) => {
   const indexofAssignment = assignments.findIndex(
-    (assignment) => Number(assignment.id) === Number(id)
+    (assignment) => Number(assignment.video_id) === Number(videoId)
   );
   return indexofAssignment === -1 ? false : true;
 };
