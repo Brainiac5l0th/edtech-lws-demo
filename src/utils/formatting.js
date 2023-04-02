@@ -52,6 +52,11 @@ export const filterAssignmentTitle = (assignments, title) => {
   return `Assignment ${findSuitableId(assignments)} - ${title}`;
 };
 
+export const removeTitleFilter = (title = "") => {
+  // returns an array
+  return title.split("-");
+};
+
 // check if a video has already assigned with a task
 export const hasAssignment = (videoId, assignments) => {
   const indexofAssignment = assignments.findIndex(

@@ -74,9 +74,7 @@ const videosApi = apiSlice.injectEndpoints({
               })
             );
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       },
     }),
     deleteVideo: builder.mutation({
@@ -87,12 +85,11 @@ const videosApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log(arg);
+
           const { meta } = result || {};
           if (meta.response?.status === 200) {
             dispatch(
               apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
-                console.log("hello");
                 return draft.filter(
                   (video) => Number(video.id) !== Number(arg)
                 );

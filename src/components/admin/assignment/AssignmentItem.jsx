@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDeleteAssignmentMutation } from '../../../features/assignment/assignmentApi';
 import { formatString } from '../../../utils/formatting';
 import { DeleteIcon, EditIcon } from '../../ui/admin/svg/CommonIcons';
 import Modal from '../../ui/common/customModal/Modal';
@@ -8,6 +9,8 @@ const AssignmentItem = ({ assignmentInfo }) => {
     const { id, title, totalMark, video_title } = assignmentInfo || {};
     const [editMode, setEditMode] = useState(false);
 
+    //thunks
+    const [deleteAssignment] = useDeleteAssignmentMutation()
     // format
     const formatAssignmentTitle = formatString(title);
     const formatVideoTitle = formatString(video_title);
@@ -15,7 +18,7 @@ const AssignmentItem = ({ assignmentInfo }) => {
 
     //handlers
     const handleDelete = (e) => {
-        // deleteVideo(id);
+        deleteAssignment(id);
     }
     const handleEdit = (e) => {
         setEditMode(true);
