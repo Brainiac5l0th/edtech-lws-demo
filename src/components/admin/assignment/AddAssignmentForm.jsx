@@ -34,6 +34,12 @@ const AddAssignmentForm = ({ setMode }) => {
         }
     }, [isError, isSuccess, setMode])
 
+    //effect for disabled button
+    useEffect(() => {
+        if (videos?.every(video => hasAssignment(video.id, assignments))) {
+            setError("Can't add assignment! Each Video contains one.")
+        }
+    }, [assignments, videos])
 
     //decide content based on videos query
     let content;
@@ -55,15 +61,10 @@ const AddAssignmentForm = ({ setMode }) => {
 
     //css classnames
     //disabled button if there is no videos or every video has assignment
-    const isDisabled = isLoading || videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments));
-    const btnClass = videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments)) ? "bg-gray-600 cursor-not-allowed" : "bg-sky-600 text-white  hover:bg-sky-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500";
+    const isDisabled = isLoading || isVideosError || videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments));
+    const btnClass = isDisabled ? "bg-gray-600 cursor-not-allowed" : "bg-sky-600 text-white  hover:bg-sky-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500";
 
-    //effect for disabled button
-    useEffect(() => {
-        if (isDisabled) {
-            setError("Can't add assignment! Each Video contains one.")
-        }
-    }, [isDisabled])
+
 
     //handlers
     const resetForm = (e) => {
