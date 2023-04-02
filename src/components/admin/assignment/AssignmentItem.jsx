@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { formatString } from '../../../utils/formatting';
 import { DeleteIcon, EditIcon } from '../../ui/admin/svg/CommonIcons';
+import Modal from '../../ui/common/customModal/Modal';
+import EditAssignmentForm from './EditAssignmentForm';
 const AssignmentItem = ({ assignmentInfo }) => {
 
-    const { title, totalMark, video_title } = assignmentInfo || {};
+    const { id, title, totalMark, video_title } = assignmentInfo || {};
+    const [editMode, setEditMode] = useState(false);
 
     // format
     const formatAssignmentTitle = formatString(title);
@@ -11,14 +14,13 @@ const AssignmentItem = ({ assignmentInfo }) => {
 
 
     //handlers
-    //handlers
     const handleDelete = (e) => {
-
+        // deleteVideo(id);
     }
     const handleEdit = (e) => {
-
+        setEditMode(true);
     }
-    return (
+    return (<>
         <tr>
             <td className="table-td">{formatAssignmentTitle}</td>
             <td className="table-td">{formatVideoTitle}</td>
@@ -32,6 +34,13 @@ const AssignmentItem = ({ assignmentInfo }) => {
                 </button>
             </td>
         </tr>
+        {
+            editMode &&
+            <Modal mode={editMode} setMode={setEditMode}>
+                <EditAssignmentForm setMode={setEditMode} id={id} />
+            </Modal>
+        }
+    </>
     )
 }
 

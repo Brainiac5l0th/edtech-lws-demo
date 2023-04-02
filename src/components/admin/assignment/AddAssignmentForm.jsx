@@ -34,6 +34,7 @@ const AddAssignmentForm = ({ setMode }) => {
         }
     }, [isError, isSuccess, setMode])
 
+
     //decide content based on videos query
     let content;
     if (isVideosLoading) {
@@ -57,6 +58,12 @@ const AddAssignmentForm = ({ setMode }) => {
     const isDisabled = isLoading || videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments));
     const btnClass = videos?.length === 0 || videos?.every(video => hasAssignment(video.id, assignments)) ? "bg-gray-600 cursor-not-allowed" : "bg-sky-600 text-white  hover:bg-sky-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500";
 
+    //effect for disabled button
+    useEffect(() => {
+        if (isDisabled) {
+            setError("Can't add assignment! Each Video contains one.")
+        }
+    }, [isDisabled])
 
     //handlers
     const resetForm = (e) => {

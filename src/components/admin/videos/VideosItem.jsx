@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDeleteVideoMutation } from "../../../features/videos/videosApi";
 import { formatString } from '../../../utils/formatting';
 import { DeleteIcon, EditIcon } from '../../ui/admin/svg/CommonIcons';
@@ -10,10 +10,6 @@ const VideosItem = ({ videoInfo }) => {
 
     const { id, title, description } = videoInfo || {};
     const [editMode, setEditMode] = useState(false)
-    //effects
-    useEffect(() => {
-
-    }, [])
 
     //filter
     const formatedTitle = formatString(title);
