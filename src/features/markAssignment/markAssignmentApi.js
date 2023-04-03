@@ -6,6 +6,7 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
       query: () => ({
         url: "/assignmentMark",
       }),
+      // async onCacheEntryAdded(arg, { cacheDataLoaded, updateCachedData, }) {},
     }),
     getAssignmentMark: builder.query({
       query: (id) => ({
@@ -36,6 +37,7 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
                 "getAssignmentsMark",
                 undefined,
                 (draft) => {
+                  console.log(JSON.stringify(draft));
                   draft.push(data);
                 }
               )

@@ -6,7 +6,7 @@ import AssignmentMarkItem from './AssignmentMarkItem';
 
 const AssignmentMarkList = () => {
     const { data: assignmentMarks, isLoading, isError } = useGetAssignmentsMarkQuery();
-    
+
     //decide what to render 
     let content;
     if (isLoading) content = <Loading />
