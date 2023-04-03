@@ -64,3 +64,8 @@ export const hasAssignment = (videoId, assignments) => {
   );
   return indexofAssignment === -1 ? false : true;
 };
+
+//first letter capital
+export const firstLetterCapital = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};

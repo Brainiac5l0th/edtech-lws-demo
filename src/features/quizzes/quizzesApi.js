@@ -9,11 +9,16 @@ const quizzesApi = apiSlice.injectEndpoints({
     }),
     getQuiz: builder.query({
       query: (id) => ({
-        url: `/videos/${id}`,
+        url: `/quizzes/${id}`,
+      }),
+    }),
+    getQuizzesWithVideoId: builder.query({
+      query: (id) => ({
+        url: `/quizzes?video_id=${id}`,
       }),
     }),
   }),
 });
 
-export const { useGetQuizzesQuery, useGetQuizQuery } = quizzesApi;
+export const { useGetQuizzesQuery, useGetQuizQuery, useGetQuizzesWithVideoIdQuery } = quizzesApi;
 export default quizzesApi;
