@@ -7,6 +7,7 @@ import { LogoutIcon } from '../common/LogoutIcon';
 const Navbar = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth) || {};
+    const { lastVideoId } = JSON.parse(localStorage?.getItem("lastVideo"))|| "1";
     const { name } = user || {};
 
     const handleLogOut = () => {
@@ -16,7 +17,7 @@ const Navbar = () => {
     return (
         <nav className="shadow-md">
             <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
-                <Link to="course-video/1">
+                <Link to={`course-video/${lastVideoId}`}>
                     <img className="h-10" src="../assets/image/learningportal.svg" alt="lws logo" />
                 </Link>
                 <div className="flex items-center gap-3">
