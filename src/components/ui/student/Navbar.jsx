@@ -7,7 +7,8 @@ import { LogoutIcon } from '../common/LogoutIcon';
 const Navbar = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth) || {};
-    const { currentVideo } = useSelector(state => state.filters) || "1";
+    const filters = useSelector(state => state.filters);
+    const currentVideo = filters?.currentVideo ? filters?.currentVideo : "1";
 
     const { name } = user || {};
 
