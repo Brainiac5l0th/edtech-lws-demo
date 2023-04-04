@@ -705,7 +705,9 @@ video {
 .justify-center {
   justify-content: center;
 }
-
+.justify-start {
+  justify-content: flex-start;
+}
 .justify-between {
   justify-content: space-between;
 }
@@ -1762,4 +1764,15 @@ body {
 
 .table-td-repo {
   white-space: pre-wrap;
+}
+
+@media (min-width: 768px) {
+  .md\:p-8 {
+    padding: 2rem;
+  }
+}
+
+.bg-cyan-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 116 144 / var(--tw-bg-opacity));
 }

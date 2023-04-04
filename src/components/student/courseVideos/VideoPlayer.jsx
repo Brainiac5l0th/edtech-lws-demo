@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useGetAssignmentWithVideoIdQuery } from '../../../features/assignment/assignmentApi';
 import { addCurrentVideo } from '../../../features/filters/filtersSlice';
+import { addQuiz, updateChecked } from '../../../features/quizzes/quizSlice';
 import { useGetQuizzesWithVideoIdQuery } from '../../../features/quizzes/quizzesApi';
 import { useGetVideoQuery } from '../../../features/videos/videosApi';
 import { formateDate } from '../../../utils/formatting';
@@ -43,6 +44,13 @@ const VideoPlayer = () => {
     }, [id])
 
     useEffect(() => {
+        if (quiz) {
+            dispatch(addQuiz(quiz));
+            dispatch(updateChecked());
+        }
+    }, [quiz, dispatch])
+
+    useEffect(() => {
         dispatch(addCurrentVideo(id))
         return () => {
             localStorage.setItem("lastVideo", JSON.stringify({
@@ -63,7 +71,7 @@ const VideoPlayer = () => {
     //assignment content
     const assignmentContent = assignment?.length > 0 ?
         <button
-            className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary" onClick={() => handleModal("assignment")}>
+            className={`px-3 font-bold py-1  rounded-full text-sm border border-cyan text-cyan hover:bg-cyan hover:text-primary`} onClick={() => handleModal("assignment")}>
             এসাইনমেন্ট
         </button> :
         <button
@@ -74,7 +82,7 @@ const VideoPlayer = () => {
 
     // quiz content
     const quizContent = quiz?.length > 0 ?
-        <button href="./Quiz.html"
+        <button
             className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary" onClick={() => handleModal("quiz")}>
             কুইজে অংশগ্রহণ করুন
         </button> :
@@ -130,7 +138,7 @@ const VideoPlayer = () => {
             {modalMode && isQuiz
                 &&
                 <Modal mode={modalMode} setMode={setModalMode}>
-                    <QuizForm quiz={quiz} isLoading={isQuizLoading} isError={isQuizError} />
+                    <QuizForm title={title} />
                 </Modal>}
         </div>
     )
