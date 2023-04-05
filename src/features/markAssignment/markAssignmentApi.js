@@ -37,7 +37,6 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
                 "getAssignmentsMark",
                 undefined,
                 (draft) => {
-                  console.log(JSON.stringify(draft));
                   draft.push(data);
                 }
               )

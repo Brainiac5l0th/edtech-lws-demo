@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import useAuth from "../../../../hooks/useAuth"
+import useAuth from "../../../../hooks/useAuth";
 const PrivateRoute = ({ allowedRole }) => {
     const authenticateUser = useAuth();
 
@@ -12,14 +12,14 @@ const PrivateRoute = ({ allowedRole }) => {
     if (allowedRole === "student") {
         //check actual role of user if user is student the redirect to video page 
         if (user?.role === 'admin') {
-            content = <Navigate to={-1} replace={true} />
+            content = <Navigate to={"/admin"} replace={true} />
         } else {
             content = <Navigate to={"/"} replace={true} />
         }
     }//allowedRole == admin means, these routes are only allowed for admin 
     else if (allowedRole === "admin") {
         if (user?.role === 'student') {
-            content = <Navigate to={-1} replace={true} />
+            content = <Navigate to={"/"} replace={true} />
         }
         else {
             content = <Navigate to={"/admin"} replace={true} />

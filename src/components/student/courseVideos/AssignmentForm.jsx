@@ -15,11 +15,22 @@ const AssignmentForm = ({ assignment, isLoading: isAssignmentLoading, isError: i
     const [success, setSuccess] = useState("");
 
     //thunks
-    const [addAssignmentMark, { isLoading, isError, isSuccess }] = useAddAssignmentMarkMutation();
-    const { data: assignmentMark, isAssignmentCheckLoading, isAssignmentCheckError } = useGetAssignmentMarkByStudentIdQuery({ id, student_id: loggedInUser?.id })
+    const [
+        addAssignmentMark,
+        { isLoading,
+            isError,
+            isSuccess
+        }
+    ] = useAddAssignmentMarkMutation();
+    const {
+        data: assignmentMark,
+        isAssignmentCheckLoading,
+        isAssignmentCheckError
+    } = useGetAssignmentMarkByStudentIdQuery({ id, student_id: loggedInUser?.id })
+
+
     const [assignmentMarkStudent] = assignmentMark || [];
     const { mark, status, repo_link } = assignmentMarkStudent || {};
-
     //effects
     useEffect(() => {
         if (!isLoading && isSuccess) {

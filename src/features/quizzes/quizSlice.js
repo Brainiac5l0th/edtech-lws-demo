@@ -18,9 +18,9 @@ const quizSlice = createSlice({
     updateQuizAnswer: (state, action) => {
       state.quizzes.forEach((quiz) => {
         if (quiz.id === action.payload.quesId) {
-           quiz.options.forEach((option) => {
+          quiz.options.forEach((option) => {
             if (option.id === action.payload.optId) {
-              option.checked = true;
+              option.checked = action.payload.value;
             }
           });
         }

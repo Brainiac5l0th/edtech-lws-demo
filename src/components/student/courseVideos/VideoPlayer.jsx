@@ -23,18 +23,19 @@ const VideoPlayer = () => {
     const [isQuiz, setIsQuiz] = useState(false);
     const { user: loggedInUser } = useSelector(state => state.auth) || {};
 
-    //localstorage e save kore dite hobe pore
-    // dispatch(addCurrentVideo(id));
-
     //thunks
+    //fetch assignment with the student id to check if given
     const {
         data: assignment,
         isLoading: isAssignmentLoading,
         isError: isAssignmentError } = useGetAssignmentWithVideoIdQuery(id, { skip: idCheck }) || {};
+
+    //quiz thunk
     const {
         data: quiz,
         isLoading: isQuizLoading,
         isError: isQuizError } = useGetQuizzesWithVideoIdQuery(id, { skip: idCheck });
+
     const { data: video, isLoading, isError } = useGetVideoQuery(id);
     const { title, description, url, createdAt } = video || {};
 
@@ -43,6 +44,7 @@ const VideoPlayer = () => {
         if (id) setIdCheck(false);
     }, [id])
 
+    //quiz modification and clone the quiz array at state
     useEffect(() => {
         if (quiz) {
             dispatch(addQuiz(quiz));
@@ -50,6 +52,7 @@ const VideoPlayer = () => {
         }
     }, [quiz, dispatch])
 
+    //effect to get last time visited video
     useEffect(() => {
         dispatch(addCurrentVideo(id))
         return () => {
@@ -68,6 +71,9 @@ const VideoPlayer = () => {
         if (modalName === "quiz") setIsQuiz(true);
         setModalMode(true);
     }
+
+
+
     //assignment content
     const assignmentContent = assignment?.length > 0 ?
         <button
@@ -81,18 +87,23 @@ const VideoPlayer = () => {
         </button>
 
     // quiz content
-    const quizContent = quiz?.length > 0 ?
-        <button
-            className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary" onClick={() => handleModal("quiz")}>
-            কুইজে অংশগ্রহণ করুন
-        </button> :
-        <button
-            disabled={true}
-            className="px-3 font-bold py-1 border border-pink text-pink rounded-full text-sm cursor-not-allowed">
-            কুইজ নেই
-        </button>;
+    let quizContent;
+    if (quiz?.length > 0) {
+        quizContent =
+            <button
+                className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary" onClick={() => handleModal("quiz")}>
+                কুইজে অংশগ্রহণ করুন
+            </button>
+    } else {
+        quizContent =
+            <button
+                disabled={true}
+                className="px-3 font-bold py-1 border border-pink text-pink rounded-full text-sm cursor-not-allowed">
+                কুইজ নেই
+            </button>
+    }
 
-    // renderable content 
+    // renderable main content content 
     let content;
     if (isLoading) content = <Loading />
     else if (!isLoading && isError) content = <Error />
@@ -122,7 +133,6 @@ const VideoPlayer = () => {
             </>
     }
 
-
     return (
         <div className="col-span-full w-full space-y-8 lg:col-span-2">
             <iframe id="frame" width="100%" className="aspect-video frameborder-0" src={url ? url : ""}
@@ -130,6 +140,7 @@ const VideoPlayer = () => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen></iframe>
             {content}
+
             {modalMode && isAssignment
                 &&
                 <Modal mode={modalMode} setMode={setModalMode}>
@@ -138,7 +149,7 @@ const VideoPlayer = () => {
             {modalMode && isQuiz
                 &&
                 <Modal mode={modalMode} setMode={setModalMode}>
-                    <QuizForm title={title} />
+                    <QuizForm title={title} setMode={setModalMode} isLoading={isQuizLoading} isError={isQuizError} />
                 </Modal>}
         </div>
     )

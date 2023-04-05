@@ -6,14 +6,12 @@ import useAuth from "../../../../hooks/useAuth";
 const PublicRoute = ({ allowedRole }) => {
     const authenticateUser = useAuth();
     const { user } = useSelector((state) => state.auth) || {};
-    const lastVideo = localStorage?.getItem("lastVideo") || "1";
-    const { lastVideoId, student_id } = lastVideo;
-    console.log(authenticateUser && user?.id === student_id && lastVideoId);
+    const lastVideo = localStorage?.getItem("lastVideo");
+    const lastVideoId = lastVideo ? JSON.parse(lastVideo)?.lastVideoId : "1";
+    
     let studentRoute;
-    if (lastVideoId) {
-        if (authenticateUser && user?.id === student_id && lastVideoId) {
-            studentRoute = `/course-video/${1}`
-        }
+    if (authenticateUser && user?.id === lastVideo?.student_id && lastVideoId) {
+        studentRoute = `/course-video/${lastVideoId}`
     } else {
         studentRoute = `/course-video/1`
     }
