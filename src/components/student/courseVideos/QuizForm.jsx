@@ -5,7 +5,7 @@ import {
     useAddQuizMarkMutation,
     useGetQuizMarkWithStudentIdQuery
 } from '../../../features/quizMark/quizMarkApi';
-import quizCalculator from '../../../utils/quiz/calculator';
+import quizCalculator from '../../../utils/quizCalculator';
 import Error from '../../ui/common/Error';
 import Loading from '../../ui/common/Loading';
 import QuizDetails from './QuizDetails';

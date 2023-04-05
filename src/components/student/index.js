@@ -8,4 +8,15 @@ import RegistrationForm from "./RegistrationForm";
 import VideoList from "./courseVideos/VideoList";
 import VideoPlayer from "./courseVideos/VideoPlayer";
 
-export { LoginForm, RegistrationForm, VideoPlayer, VideoList };
+//results
+import TopResults from "./leaderboard/TopResults";
+import UserResult from "./leaderboard/UserResult";
+
+export {
+  LoginForm,
+  RegistrationForm,
+  VideoPlayer,
+  VideoList,
+  UserResult,
+  TopResults,
+};

@@ -1,98 +1,68 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { TopResults, UserResult } from '../../components/student';
+import { useGetAssignmentsMarkQuery } from '../../features/markAssignment/markAssignmentApi';
+import { useGetQuizMarksQuery } from '../../features/quizMark/quizMarkApi';
+import { useGetStudentsQuery } from '../../features/users/usersApi';
+import calculateTotalMark from '../../utils/calculateTotalMark';
 
 const Leaderboard = () => {
+    const { data: quizMarkAll, isQuizLoading, isQuizError } = useGetQuizMarksQuery();
+    const { data: assignmentMarkAll, isAssignmentLoading, isAssignmentError } = useGetAssignmentsMarkQuery();
+    const { data: students, isStudentsLoading, isStudentsError } = useGetStudentsQuery();
+    // ["position", "Name", "total", "assignmentTotalMark", "quizTotalMark"]
+    const { user: loggedInUser } = useSelector(state => state.auth);
+
+    const isLoading = [isQuizLoading, isAssignmentLoading, isStudentsLoading].every(Boolean)
+    const isError = [isQuizError, isAssignmentError, isStudentsError].every(Boolean)
+
+    let finalResults = [];
+    if (!isLoading && !isError) {
+        students?.forEach(student => {
+            let assignmentMark, totalQuizMark;
+            totalQuizMark = calculateTotalMark(quizMarkAll, student.id);
+            assignmentMark = calculateTotalMark(assignmentMarkAll, student.id);
+            const student_data = {
+                id: student.id,
+                name: student.name,
+                totalQuizMark,
+                assignmentMark,
+                total: totalQuizMark + assignmentMark,
+                rank: undefined,
+            }
+            finalResults.push(student_data);
+        })
+    }
+    //
+    const sortByNumberDesc = (a, b) => Number(b.total) - Number(a.total)
+    //function to set rank of student
+    const setPosition = (result, i) => {
+        if (i === 0) {
+            //highest one take first place
+            result.rank = 1;
+        }
+        else if (i > 0) {
+            let prevResult = result[i - 1];
+            if (prevResult?.total === result?.total) {
+                //if both user have same total number, they get same rank
+                result.rank = prevResult?.rank;
+            } else {
+                result.rank = i + 1;
+            }
+        }
+
+        return result;
+    }
+    const sortedfinalResultsWithRank = finalResults?.length > 0 && [...finalResults].sort(sortByNumberDesc).map(setPosition);
+
+    const userResult = sortedfinalResultsWithRank?.length > 0 && sortedfinalResultsWithRank.find(result => result.id === loggedInUser?.id);
+
     return (
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-7xl px-5 lg:px-0">
-                <div>
-                    <h3 className="text-lg font-bold">Your Position in Leaderboard</h3>
-                    <table className="text-base w-full border border-slate-600/50 rounded-md my-4">
-                        <thead>
-                            <tr>
-                                <th className="table-th !text-center">Rank</th>
-                                <th className="table-th !text-center">Name</th>
-                                <th className="table-th !text-center">Quiz Mark</th>
-                                <th className="table-th !text-center">Assignment Mark</th>
-                                <th className="table-th !text-center">Total</th>
-                            </tr>
-                        </thead>
+                <UserResult info={userResult} />
 
-                        <tbody>
-                            <tr className="border-2 border-cyan">
-                                <td className="table-td text-center font-bold">4</td>
-                                <td className="table-td text-center font-bold">Saad Hasan</td>
-                                <td className="table-td text-center font-bold">50</td>
-                                <td className="table-td text-center font-bold">50</td>
-                                <td className="table-td text-center font-bold">100</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div className="my-8">
-                    <h3 className="text-lg font-bold">Top 20 Result</h3>
-                    <table className="text-base w-full border border-slate-600/50 rounded-md my-4">
-                        <thead>
-                            <tr className="border-b border-slate-600/50">
-                                <th className="table-th !text-center">Rank</th>
-                                <th className="table-th !text-center">Name</th>
-                                <th className="table-th !text-center">Quiz Mark</th>
-                                <th className="table-th !text-center">Assignment Mark</th>
-                                <th className="table-th !text-center">Total</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr className="border-b border-slate-600/50">
-                                <td className="table-td text-center">4</td>
-                                <td className="table-td text-center">Saad Hasan</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">100</td>
-                            </tr>
-
-                            <tr className="border-b border-slate-600/50">
-                                <td className="table-td text-center">4</td>
-                                <td className="table-td text-center">Saad Hasan</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">100</td>
-                            </tr>
-
-                            <tr className="border-b border-slate-600/50">
-                                <td className="table-td text-center">4</td>
-                                <td className="table-td text-center">Saad Hasan</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">100</td>
-                            </tr>
-
-                            <tr className="border-b border-slate-600/50">
-                                <td className="table-td text-center">4</td>
-                                <td className="table-td text-center">Saad Hasan</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">100</td>
-                            </tr>
-
-                            <tr className="border-b border-slate-600/50">
-                                <td className="table-td text-center">4</td>
-                                <td className="table-td text-center">Saad Hasan</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">100</td>
-                            </tr>
-
-                            <tr className="border-slate-600/50">
-                                <td className="table-td text-center">4</td>
-                                <td className="table-td text-center">Saad Hasan</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">50</td>
-                                <td className="table-td text-center">100</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <TopResults finalResult={sortedfinalResultsWithRank} />
             </div>
         </section>
     )
