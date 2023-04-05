@@ -8,7 +8,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth) || {};
     const filters = useSelector(state => state.filters);
-    const { lastVideoId } = JSON.parse(localStorage?.getItem("lastVideo"))
+    const { lastVideoId } = localStorage?.getItem("lastVideo") || "1";
     const currentVideo = filters?.currentVideo ? filters?.currentVideo : lastVideoId;
 
     const { name } = user || {};
