@@ -60,7 +60,7 @@ const AssignmentMarkItem = ({ markInfo }) => {
                 <td className="table-td">{formatedTitle}</td>
                 <td className="table-td">{formatedDate}</td>
                 <td className="table-td">{student_name}</td>
-                <td className="table-td">{repo_link}</td>
+                <td className="table-td table-td-repo">{repo_link}</td>
                 <td className={`table-td ${markClass}`}>{markContent}</td>
             </tr>
         </>

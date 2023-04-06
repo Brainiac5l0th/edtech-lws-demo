@@ -4,40 +4,29 @@ import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from "../../../../hooks/useAuth";
 
 const PublicRoute = ({ allowedRole }) => {
-    const authenticateUser = useAuth();
+    const authenticateUser = useAuth(allowedRole);
     const { user } = useSelector((state) => state.auth) || {};
-    const lastVideo = localStorage?.getItem("lastVideo");
-    const lastVideoId = lastVideo ? JSON.parse(lastVideo)?.lastVideoId : "1";
-    
-    let studentRoute;
-    if (authenticateUser && user?.id === lastVideo?.student_id && lastVideoId) {
-        studentRoute = `/course-video/${lastVideoId}`
-    } else {
-        studentRoute = `/course-video/1`
-    }
 
     let content;
     //allowedRole == student means, these routes are only allowed for students
     if (allowedRole === "student") {
         //check actual role of user if user is student the redirect to video page 
-        if (user?.role === 'student') {
-            content = <Navigate to={studentRoute} />
+        if (user?.role === 'admin') {
+            content = <Navigate to={"/admin/dashboard"} replace={true} />
+        } else {
+            content = <Navigate to={"/course-video/1"} replace={true} />
         }
-        else if (user?.role === 'admin') {
-            content = <Navigate to={-1} />
-        }
-    }//allowedRole == admin means, these routes are only allowed for students 
+    }//allowedRole == admin means, these routes are only allowed for admin 
     else if (allowedRole === "admin") {
         if (user?.role === 'student') {
-            content = <Navigate to={-1} />
+            content = <Navigate to={"/course-video/1"} replace={true} />
         }
-        else if (user?.role === 'admin') {
-            content = <Navigate to={"/admin/dashboard"} />
+        else {
+            content = <Navigate to={"/admin/dashboard"} replace={true} />
         }
     }
 
-
-    return !authenticateUser ? <Outlet /> : content;
+    return !authenticateUser && !user?.id ? <Outlet /> : content;
 }
 
 export default PublicRoute

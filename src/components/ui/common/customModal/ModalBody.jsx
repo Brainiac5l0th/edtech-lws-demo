@@ -15,7 +15,9 @@ const ModalBody = ({ closeModal, children }) => {
     const content =
         (<>
             <div className="modal-wrapper" onClick={closeModal}></div>
-            <div className="modal-container">{children}</div>
+            <div className="modal-container">
+                {children}
+            </div>
         </>)
 
     return createPortal(

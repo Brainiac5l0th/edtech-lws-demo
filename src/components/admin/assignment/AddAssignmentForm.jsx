@@ -97,8 +97,8 @@ const AddAssignmentForm = ({ setMode }) => {
             //pass to the thunk
             addAssignment({
                 title: assignmentTitle,
-                video_id: videoObject.id,
-                video_title: videoObject.title,
+                video_id: videoObject?.id,
+                video_title: videoObject?.title,
                 totalMark: parseInt(assignmentData.totalMark)
             })
         }

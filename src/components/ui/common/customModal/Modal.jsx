@@ -14,7 +14,7 @@ const Modal = ({ mode, setMode, children }) => {
         setMode(!mode);
     }
 
-    return showModal && < ModalBody closeModal={closeModal} > {children} </ModalBody >
+    return showModal && <ModalBody closeModal={closeModal} > {children} </ModalBody >
 
 }
 

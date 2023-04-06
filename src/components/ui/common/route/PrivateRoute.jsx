@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from "../../../../hooks/useAuth";
 const PrivateRoute = ({ allowedRole }) => {
-    const authenticateUser = useAuth();
-
+    
+    const authenticateUser = useAuth(allowedRole);
     const { user } = useSelector((state) => state.auth) || {};
 
     let content;
@@ -27,7 +27,7 @@ const PrivateRoute = ({ allowedRole }) => {
     }
 
 
-    return authenticateUser ? <Outlet /> : content;
+    return authenticateUser && user?.id ? <Outlet /> : content;
 }
 
 export default PrivateRoute
