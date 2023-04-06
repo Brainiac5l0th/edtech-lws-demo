@@ -1587,7 +1587,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-
 .form-wrapper {
   width: 768px;
   border-radius: 1rem;
@@ -1772,7 +1771,14 @@ body {
     padding: 2rem;
   }
 }
-
+.bg-teal-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(13 148 136 / var(--tw-bg-opacity));
+}
+.hover\:bg-teal-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 118 110 / var(--tw-bg-opacity));
+}
 .bg-cyan-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(14 116 144 / var(--tw-bg-opacity));

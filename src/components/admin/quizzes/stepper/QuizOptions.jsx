@@ -26,12 +26,15 @@ const QuizOptions = ({ formData, setFormData }) => {
     return (
         <div>
             <div className='flex justify-between'>
-                <label className='mt-4 text-md font-medium text-sky-600'>{formData.question}</label>
+                <div>
+                    <label className='mt-4 text-md font-medium text-sky-600'>{formData.question}</label>
+                    <p className="text-sm text-gray-300 after:content-['*'] after:text-pink-600 after:mx-1">maximum six(6) options allowed</p>
+                </div>
                 <button
                     disabled={formData.options?.length === 6}
                     type="button"
                     onClick={handleClick}
-                    className='mt-4 mr-2 py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500'>Add One</button>
+                    className='mt-4 mr-2 py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500'>Add Option</button>
             </div>
             {formData.options?.map((option, i) =>
                 <TextInput
