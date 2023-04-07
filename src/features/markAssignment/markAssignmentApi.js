@@ -18,6 +18,11 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
         url: `/assignmentMark?assignment_id=${id}&student_id=${student_id}`,
       }),
     }),
+    getAssignmentMarkByAssignmentId: builder.query({
+      query: (id) => ({
+        url: `/assignmentMark?assignment_id=${id}`,
+      }),
+    }),
     addAssignmentMark: builder.mutation({
       query: (data) => ({
         url: `/assignmentMark`,
@@ -96,6 +101,76 @@ const assignmentMarkApi = apiSlice.injectEndpoints({
                 (draft) => {
                   draft.status = data.status;
                   draft.mark = data.mark;
+                }
+              )
+            );
+          }
+        } catch (error) {}
+      },
+    }),
+    updateAssignmentMarkTitle: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/assignmentMark/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+
+      async onQueryStarted(
+        { id, data: userGivenData },
+        { dispatch, queryFulfilled }
+      ) {
+        try {
+          const result = await queryFulfilled;
+          const { data, meta } = result || {};
+
+          if (data.id && meta.response.status === 200) {
+            //pesimistic update
+            dispatch(
+              apiSlice.util.updateQueryData(
+                "getAssignmentsMark",
+                undefined,
+                (draft) => {
+                  const draftToUpdate = draft.find(
+                    (assignmentMark) =>
+                      Number(assignmentMark.id) === Number(data?.id)
+                  );
+                  draftToUpdate.title = data.title;
+                }
+              )
+            );
+
+            //update against id also
+            dispatch(
+              apiSlice.util.updateQueryData(
+                "getAssignmentMark",
+                id,
+                (draft) => {
+                  draft.title = data.title;
+                }
+              )
+            );
+          }
+        } catch (error) {}
+      },
+    }),
+    deleteAssignmentMark: builder.mutation({
+      query: (id) => ({
+        url: `/assignmentMark/${id}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled;
+          const { meta } = result || {};
+          if (meta?.response?.status === 200) {
+            dispatch(
+              apiSlice.util.updateQueryData(
+                "getAssignmentsMark",
+                undefined,
+                (draft) => {
+                  return draft.filter(
+                    (assignment) => Number(assignment.id) !== Number(arg)
+                  );
                 }
               )
             );
