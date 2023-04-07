@@ -33,10 +33,14 @@ const AssignmentForm = ({ assignment, isLoading: isAssignmentLoading, isError: i
     const { mark, status, repo_link } = assignmentMarkStudent || {};
     //effects
     useEffect(() => {
+        document.title = "Assignment"
+    }, []);
+    useEffect(() => {
         if (!isLoading && isSuccess) {
             setSuccess("Assignment Added SuccessFully! Thank you for your response.");
             setGithubLink("");
             setMode(false);
+            document.title = "Player"
         } else if (isError) {
             setError("Can not add Assignment! Try Again later.")
         }
@@ -78,6 +82,7 @@ const AssignmentForm = ({ assignment, isLoading: isAssignmentLoading, isError: i
     }
     const handleCancel = () => {
         setMode(false);
+        document.title = "Player"
     }
 
     //decide what to render

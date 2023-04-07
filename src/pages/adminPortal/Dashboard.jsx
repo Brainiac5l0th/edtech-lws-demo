@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
     AssignmentIcon,
@@ -8,6 +8,10 @@ import {
 } from '../../components/ui/admin/svg/DashIcons'
 
 const Dashboard = () => {
+    //effects
+    useEffect(() => {
+        document.title = "Dashboard"
+    }, [])
     return (
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-7xl px-5 lg:px-0">

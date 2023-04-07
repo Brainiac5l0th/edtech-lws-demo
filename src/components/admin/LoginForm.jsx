@@ -20,8 +20,6 @@ const LoginForm = () => {
             navigate("dashboard");
         } else if (isError) {
             setError("Invalid Username or Password")
-        } else {
-            setError("Invalid Username or Password")
         }
     }, [isSuccess, isError, responseError, navigate])
 

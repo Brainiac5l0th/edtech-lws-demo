@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VideosList } from '../../components/admin';
 import AddVideoForm from "../../components/admin/videos/AddVideoForm";
 import Modal from "../../components/ui/common/customModal/Modal";
@@ -9,6 +9,10 @@ const Videos = () => {
     const handleAdd = () => {
         setAddMode(true);
     }
+    //effects
+    useEffect(() => {
+        document.title = "Videos"
+    }, [])
     return (
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-full px-5 lg:px-20">

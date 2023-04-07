@@ -1,8 +1,19 @@
+//admin login
 import AdminLogin from "./AdminLogin";
-import Assignment from "./Assignment";
-import AssignmentMark from "./AssignmentMark";
+
+//dashboard
 import Dashboard from "./Dashboard";
-import Quizzes from "./Quizzes";
+
+//videos
 import Videos from "./Videos";
+
+//assignment
+import Assignment from "./Assignment";
+
+//quizzes
+import Quizzes from "./Quizzes";
+
+//assignment mark
+import AssignmentMark from "./AssignmentMark";
 
 export { AdminLogin, Dashboard, Quizzes, Videos, Assignment, AssignmentMark };

@@ -36,6 +36,10 @@ const QuizForm = ({ title, setMode, isLoading: isQuizLoading, isError: isQuizErr
         useGetQuizMarkWithStudentIdQuery({ videoId: video_id, student_id: loggedInUser.id })
 
     //effects
+    //effects
+    useEffect(() => {
+        document.title = "Quiz - LWS"
+    }, [])
     useEffect(() => {
         if (isSuccess) {
             setMode(false);

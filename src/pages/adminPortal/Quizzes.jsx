@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QuizList } from '../../components/admin';
-import Modal from '../../components/ui/common/customModal/Modal';
 import AddQuizzesForm from '../../components/admin/quizzes/AddQuizzesForm';
+import Modal from '../../components/ui/common/customModal/Modal';
 
 const Quizzes = () => {
     const [addMode, setAddMode] = useState(false);
     const handleAdd = () => {
         setAddMode(true);
     }
+    //effects
+    useEffect(() => {
+        document.title = "Quizzes"
+    }, [])
     return (
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-full px-5 lg:px-20">

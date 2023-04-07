@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { TopResults, UserResult } from '../../components/student';
 import { useGetAssignmentsMarkQuery } from '../../features/markAssignment/markAssignmentApi';
@@ -7,6 +7,7 @@ import { useGetStudentsQuery } from '../../features/users/usersApi';
 import calculateTotalMark from '../../utils/calculateTotalMark';
 
 const Leaderboard = () => {
+
     const { data: quizMarkAll, isQuizLoading, isQuizError } = useGetQuizMarksQuery();
     const { data: assignmentMarkAll, isAssignmentLoading, isAssignmentError } = useGetAssignmentsMarkQuery();
     const { data: students, isStudentsLoading, isStudentsError } = useGetStudentsQuery();
@@ -33,7 +34,11 @@ const Leaderboard = () => {
             finalResults.push(student_data);
         })
     }
-    //
+    //effects
+    useEffect(() => { document.title = "Leaderboard" }, [])
+
+
+    //sort them by number
     const sortByNumberDesc = (a, b) => Number(b.total) - Number(a.total)
     //function to set rank of student
     const setPosition = (result, i) => {

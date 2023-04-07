@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AssignmentList } from '../../components/admin';
 import AddAssignmentForm from '../../components/admin/assignment/AddAssignmentForm';
 import Modal from '../../components/ui/common/customModal/Modal';
@@ -8,6 +8,10 @@ const Assignment = () => {
     const handleAdd = () => {
         setAddMode(true);
     }
+    //effects
+    useEffect(() => {
+        document.title = "Assignment"
+    }, [])
     return (
         <section className="py-6 bg-primary">
             <div className="mx-auto max-w-full px-5 lg:px-20">

@@ -12,6 +12,9 @@ const LoginForm = () => {
 
     //effects
     useEffect(() => {
+        document.title = "Student Login"
+    }, []);
+    useEffect(() => {
         if (isSuccess) {
             resetForm();
             const lastVideo = localStorage?.getItem("lastVideo");
