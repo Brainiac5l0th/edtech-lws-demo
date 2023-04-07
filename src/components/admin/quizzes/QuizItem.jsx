@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDeleteQuizMutation } from '../../../features/quizzes/quizzesApi';
 import { formatString } from '../../../utils/formatting';
 import { DeleteIcon, EditIcon } from '../../ui/admin/svg/CommonIcons';
 import Modal from '../../ui/common/customModal/Modal';
@@ -6,15 +7,17 @@ import EditQuizzesForm from './EditQuizzesForm';
 
 const QuizItem = ({ quizInfo }) => {
 
-    const { id, question, video_title } = quizInfo || {};
+    const { id, question, video_id, video_title } = quizInfo || {};
     const [editMode, setEditMode] = useState(false);
+    //thunks 
+    const [deleteQuiz] = useDeleteQuizMutation();
     //formating titles
     const formatQuestion = formatString(question);
     const formatVideoTitle = formatString(video_title);
 
     //handlers
     const handleDelete = (e) => {
-
+        deleteQuiz({ id, video_id });
     }
     const handleEdit = (e) => {
         setEditMode(true);

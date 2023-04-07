@@ -197,7 +197,7 @@ const quizzesApi = apiSlice.injectEndpoints({
       },
     }),
     deleteQuiz: builder.mutation({
-      query: (id) => ({
+      query: ({ id, video_id }) => ({
         url: `/quizzes/${id}`,
         method: "DELETE",
       }),
@@ -213,31 +213,24 @@ const quizzesApi = apiSlice.injectEndpoints({
                 undefined,
                 (draft) => {
                   return draft.filter(
-                    (quiz) => Number(quiz.id) !== Number(arg)
+                    (quiz) => Number(quiz.id) !== Number(arg.id)
                   );
                 }
               )
             );
-            //todo:find quizMark against this video id and delete them
 
-            //todo: ********** find how to get quiz information after deleting *********
-            const quizData = await dispatch(
-              apiSlice.endpoints.getQuiz.initiate(arg)
+            //find all quizMarks against video id
+            const quizMarks = await dispatch(
+              apiSlice.endpoints.getQuizMarkWithVideoId.initiate(arg.video_id)
             ).unwrap();
-            if (quizData?.video_id) {
-              const quizMarks = await dispatch(
-                apiSlice.endpoints.getQuizMarkWithVideoId.initiate(
-                  quizData?.video_id
+            console.log(quizMarks);
+            if (quizMarks?.length > 0) {
+              //delete all quizMarks for this videoId and inform the student
+              quizMarks.forEach((quizMark) =>
+                dispatch(
+                  apiSlice.endpoints.deleteQuizMark.initiate(quizMark?.id)
                 )
-              ).unwrap();
-              console.log(quizMarks);
-              if (quizMarks?.length > 0) {
-                quizMarks.forEach((quizMark) =>
-                  dispatch(
-                    apiSlice.endpoints.deleteQuizMark.initiate(quizMark?.id)
-                  )
-                );
-              }
+              );
             }
           }
         } catch (error) {}
