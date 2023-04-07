@@ -69,7 +69,10 @@ const QuizForm = ({ title, setMode, isLoading: isQuizLoading, isError: isQuizErr
 
         }
     }
-
+    const handleNext = (e) => {
+        e.preventDefault();
+        setPage(prev => prev + 1)
+    }
     //css   
     const disableBtnClass = "cursor-not-allowed bg-cyan-700";
     const normalBtnClass = "bg-cyan hover:opacity-90 active:opacity-100 active:scale-95"
@@ -109,7 +112,7 @@ const QuizForm = ({ title, setMode, isLoading: isQuizLoading, isError: isQuizErr
 
                 {page !== quizzes?.length - 1 ?
                     <button
-                        onClick={() => setPage(prev => prev + 1)}
+                        onClick={handleNext}
                         className={`justify-end px-4 py-2 rounded-full hover:opacity-90 active:opacity-100 active:scale-95 ${page === quizzes?.length - 1 ? disableBtnClass : normalBtnClass}`}>
                         Next
                     </button>

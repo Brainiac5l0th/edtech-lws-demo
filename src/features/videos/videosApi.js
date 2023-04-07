@@ -73,6 +73,41 @@ const videosApi = apiSlice.injectEndpoints({
                 draft.createdAt = data.createdAt;
               })
             );
+            const dataToPassForUpdate = {
+              video_title: data.title,
+            };
+            // update all quizzes
+
+            //update all assignments
+            const assignments = await dispatch(
+              apiSlice.endpoints.getAssignmentWithVideoId.initiate(id)
+            ).unwrap();
+            if (assignments?.length > 0 && assignments[0].video_title !== data.title) {
+              assignments.forEach((assignment) => {
+                dispatch(
+                  apiSlice.endpoints.updateAssignmentVideoTitle.initiate({
+                    id: assignment.id,
+                    data: dataToPassForUpdate,
+                  })
+                );
+              });
+            }
+            console.log(assignments);
+            // update all quizzes title :TODO
+            const quizzes = await dispatch(
+              apiSlice.endpoints.getQuizzesWithVideoId.initiate(id)
+            ).unwrap();
+            console.log(quizzes);
+            if (quizzes?.length > 0 && quizzes[0].video_title !== data.title) {
+              quizzes.forEach((quiz) =>
+                dispatch(
+                  apiSlice.endpoints.updateQuizVideoTitle.initiate({
+                    id: quiz.id,
+                    data: dataToPassForUpdate,
+                  })
+                )
+              );
+            }
           }
         } catch (error) {}
       },
@@ -95,6 +130,31 @@ const videosApi = apiSlice.injectEndpoints({
                 );
               })
             );
+
+            //delete all
+            // have to delete quizzes only->quizMark(quiz will delete them),
+            // have to delete assignments only->assignmentMarks(assignment will delete them),
+            //quizzes
+            dispatch(apiSlice.endpoints.getQuizzesWithVideoId.initiate(arg))
+              .unwrap()
+              .then((quizzes) => {
+                quizzes.forEach((quiz) => {
+                  dispatch(apiSlice.endpoints.deleteQuiz.initiate(quiz.id));
+                });
+              })
+              .catch((err) => console.log(err));
+
+            //assignments
+            dispatch(apiSlice.endpoints.getAssignmentWithVideoId.initiate(arg))
+              .unwrap()
+              .then((assignments) => {
+                assignments.forEach((assignment) => {
+                  dispatch(
+                    apiSlice.endpoints.deleteAssignment.initiate(assignment.id)
+                  );
+                });
+              })
+              .catch((err) => console.log(err));
           }
         } catch (error) {}
       },

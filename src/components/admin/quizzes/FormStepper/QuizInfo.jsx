@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from '../../../ui/common/formInputs/TextInput';
 
-const QuizInfo = ({ formData, setFormData, videos }) => {
+const QuizInfo = ({ formData, setFormData, videos, editMode = false }) => {
 
 
 
@@ -21,7 +21,7 @@ const QuizInfo = ({ formData, setFormData, videos }) => {
                     Videos
                 </label>
                 <select
-                    disabled={videos?.length === 0}
+                    disabled={videos?.length === 0 || editMode}
                     id='videoTitle'
                     name="video"
                     className='mt-2 p-2 text-black focus:ring-sky-600 focus:border-sky-600 block w-full rounded-md shadow-sm text-sm bg-gray-300'

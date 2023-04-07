@@ -1,4 +1,5 @@
 import React from 'react';
+import Error from '../../../ui/common/Error';
 
 const Confirmation = ({ formData, setFormData }) => {
 
@@ -26,6 +27,18 @@ const Confirmation = ({ formData, setFormData }) => {
             />
             {option.option}
         </label >)
+
+    //content decide
+    let content;
+    if (formData.options.some(option => option.option === "")) {
+        content = <Error message='Options Can not be blank. Please add option value in previous page!' />
+    } else {
+        content = <div className="space-y-8 ">
+            <div className="quizOptions">
+                {selectedOptions}
+            </div>
+        </div>
+    }
     return (
         <>
             <div className="mb-8">
@@ -33,11 +46,7 @@ const Confirmation = ({ formData, setFormData }) => {
                 </h1>
                 <p className="text-sm text-gray-300 after:content-['*'] after:text-pink-600 after:mx-1"> Choose the correct answer/answers among the following options</p>
             </div>
-            <div className="space-y-8 ">
-                <div className="quizOptions">
-                    {selectedOptions}
-                </div>
-            </div>
+            {content}
         </>
     )
 }
