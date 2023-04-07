@@ -16,6 +16,7 @@ const quizMarkApi = apiSlice.injectEndpoints({
       query: (videoId) => ({
         url: `/quizMark?video_id=${videoId}`,
       }),
+      providesTags: ["getQuizMarkWithVideoId"],
     }),
     addQuizMark: builder.mutation({
       query: (data) => ({
@@ -85,10 +86,31 @@ const quizMarkApi = apiSlice.injectEndpoints({
       },
     }),
     deleteQuizMark: builder.mutation({
-      query: (id) => ({
+      query: ({ id, video_id }) => ({
         url: `/quizMark/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["getQuizMarkWithVideoId"],
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled;
+          const { meta } = result;
+          if (meta.response?.status === 200) {
+            //update cache data
+            dispatch(
+              apiSlice.util.updateQueryData(
+                "getQuizMarks",
+                undefined,
+                (draft) => {
+                  draft.filter(
+                    (quizMark) => Number(quizMark.id) !== Number(arg.id)
+                  );
+                }
+              )
+            );
+          }
+        } catch (error) {}
+      },
     }),
   }),
 });
