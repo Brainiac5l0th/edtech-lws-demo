@@ -14,9 +14,10 @@ const LoginForm = () => {
     useEffect(() => {
         if (isSuccess) {
             resetForm();
-            // const lastVideoId = localStorage.getItem("lastVideo");
-            // navigate("/course-video/${lastVideoId}");
-            navigate("course-video/1");
+            const lastVideo = localStorage?.getItem("lastVideo");
+            const lastVideoId = lastVideo && JSON.parse(lastVideo)?.lastVideoId;
+            console.log(JSON.parse(lastVideo)?.lastVideoId);
+            navigate(`course-video/${lastVideoId}`);
         } else if (isError) {
             if (responseError?.status === "FETCH_ERROR") setError("There was an server side Error!")
             else setError("Invalid Username or Password!");

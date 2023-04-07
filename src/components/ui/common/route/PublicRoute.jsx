@@ -6,6 +6,8 @@ import useAuth from "../../../../hooks/useAuth";
 const PublicRoute = ({ allowedRole }) => {
     const authenticateUser = useAuth(allowedRole);
     const { user } = useSelector((state) => state.auth) || {};
+    const lastVideo = localStorage?.getItem("lastVideo");
+    const lastVideoId = lastVideo ? JSON.parse(lastVideo)?.lastVideoId : "1";
 
     let content;
     //allowedRole == student means, these routes are only allowed for students
@@ -14,12 +16,12 @@ const PublicRoute = ({ allowedRole }) => {
         if (user?.role === 'admin') {
             content = <Navigate to={"/admin/dashboard"} replace={true} />
         } else {
-            content = <Navigate to={"/course-video/1"} replace={true} />
+            content = <Navigate to={`/course-video/${lastVideoId}`} replace={true} />
         }
     }//allowedRole == admin means, these routes are only allowed for admin 
     else if (allowedRole === "admin") {
         if (user?.role === 'student') {
-            content = <Navigate to={"/course-video/1"} replace={true} />
+            content = <Navigate to={`/course-video/${lastVideoId}`} replace={true} />
         }
         else {
             content = <Navigate to={"/admin/dashboard"} replace={true} />
