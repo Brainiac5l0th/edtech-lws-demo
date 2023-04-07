@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../features/auth/authApi';
+import { useAdminLoginMutation } from '../../features/auth/authApi';
 import Error from '../ui/common/Error';
 
 const LoginForm = () => {
@@ -10,7 +10,7 @@ const LoginForm = () => {
         email: "",
         password: ""
     })
-    const [login, { isLoading, isSuccess, isError, error: responseError }] = useLoginMutation();
+    const [adminLogin, { isLoading, isSuccess, isError, error: responseError }] = useAdminLoginMutation();
     const navigate = useNavigate();
 
     //effects
@@ -19,6 +19,8 @@ const LoginForm = () => {
             resetForm();
             navigate("dashboard");
         } else if (isError) {
+            setError("Invalid Username or Password")
+        } else {
             setError("Invalid Username or Password")
         }
     }, [isSuccess, isError, responseError, navigate])
@@ -33,10 +35,10 @@ const LoginForm = () => {
             password: ""
         })
     }
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
-        login({
+        adminLogin({
             email: loginData.email.trim(),
             password: loginData.password
         })

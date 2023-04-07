@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../features/auth/authApi';
+import { useStudentLoginMutation } from '../../features/auth/authApi';
 import Error from '../ui/common/Error';
 
 const LoginForm = () => {
     //hooks 
     const [loginData, setLoginData] = useState({ email: "", password: "" });
-    const [login, { isLoading, isError, error: responseError, isSuccess }] = useLoginMutation();
+    const [studentLogin, { isLoading, isError, error: responseError, isSuccess }] = useStudentLoginMutation();
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -20,6 +20,8 @@ const LoginForm = () => {
         } else if (isError) {
             if (responseError?.status === "FETCH_ERROR") setError("There was an server side Error!")
             else setError("Invalid Username or Password!");
+        } else {
+            setError("Invalid Username or Password!")
         }
     }, [isSuccess, isError, responseError, navigate])
     //handlers
@@ -35,7 +37,7 @@ const LoginForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
-        login({
+        studentLogin({
             email: loginData.email.trim(),
             password: loginData.password
         });
