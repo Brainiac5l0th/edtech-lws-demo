@@ -10,12 +10,13 @@ const quizCalculator = (quizzes) => {
       checkedIndexes = [];
     quiz.options.forEach((option, index2) => {
       if (option.isCorrect) {
-        correctIndexes.push(index1);
+        correctIndexes.push(index2);
       }
       if (option.checked) {
         checkedIndexes.push(index2);
       }
     });
+    console.log(`correctIndex:${correctIndexes} checkIndex:${checkedIndexes}`);
     if (_.isEqual(correctIndexes, checkedIndexes)) {
       mark = mark + 5;
       correct_answer += 1;
