@@ -21,8 +21,6 @@ const LoginForm = () => {
         } else if (isError) {
             if (responseError?.status === "FETCH_ERROR") setError("There was an server side Error!")
             else setError("Invalid Username or Password!");
-        } else {
-            setError("Invalid Username or Password!")
         }
     }, [isSuccess, isError, responseError, navigate])
     //handlers

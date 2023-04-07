@@ -7,7 +7,12 @@ const PublicRoute = ({ allowedRole }) => {
     const authenticateUser = useAuth(allowedRole);
     const { user } = useSelector((state) => state.auth) || {};
     const lastVideo = localStorage?.getItem("lastVideo");
-    const lastVideoId = lastVideo ? JSON.parse(lastVideo)?.lastVideoId : "1";
+    let lastVideoId;
+    if (lastVideo && JSON.parse(lastVideo)?.student_id === user?.id) {
+        lastVideoId = lastVideo ? JSON.parse(lastVideo)?.lastVideoId : "1";
+    } else {
+        lastVideoId = "1";
+    }
 
     let content;
     //allowedRole == student means, these routes are only allowed for students
