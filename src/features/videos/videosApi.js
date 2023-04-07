@@ -82,7 +82,11 @@ const videosApi = apiSlice.injectEndpoints({
             const assignments = await dispatch(
               apiSlice.endpoints.getAssignmentWithVideoId.initiate(id)
             ).unwrap();
-            if (assignments?.length > 0 && assignments[0].video_title !== data.title) {
+            // check if title are not same
+            if (
+              assignments?.length > 0 &&
+              assignments[0].video_title !== data.title
+            ) {
               assignments.forEach((assignment) => {
                 dispatch(
                   apiSlice.endpoints.updateAssignmentVideoTitle.initiate({
@@ -92,12 +96,12 @@ const videosApi = apiSlice.injectEndpoints({
                 );
               });
             }
-            console.log(assignments);
-            // update all quizzes title :TODO
+
+            // update all quizzes title
             const quizzes = await dispatch(
               apiSlice.endpoints.getQuizzesWithVideoId.initiate(id)
             ).unwrap();
-            console.log(quizzes);
+            // check if title are not same
             if (quizzes?.length > 0 && quizzes[0].video_title !== data.title) {
               quizzes.forEach((quiz) =>
                 dispatch(
@@ -132,29 +136,40 @@ const videosApi = apiSlice.injectEndpoints({
             );
 
             //delete all
-            // have to delete quizzes only->quizMark(quiz will delete them),
-            // have to delete assignments only->assignmentMarks(assignment will delete them),
-            //quizzes
-            dispatch(apiSlice.endpoints.getQuizzesWithVideoId.initiate(arg))
-              .unwrap()
-              .then((quizzes) => {
-                quizzes.forEach((quiz) => {
-                  dispatch(apiSlice.endpoints.deleteQuiz.initiate(quiz.id));
-                });
-              })
-              .catch((err) => console.log(err));
+            // have to delete quizzes only->(quiz will delete them quizMark),
 
+            //quizzes
+            // get quizzes that have this video id
+            const quizzes = await dispatch(
+              apiSlice.endpoints.getQuizzesWithVideoId.initiate(arg)
+            ).unwrap();
+
+            if (quizzes?.length > 0) {
+              //delete each quiz that have video id
+              quizzes.forEach((quiz) => {
+                dispatch(
+                  apiSlice.endpoints.deleteQuiz.initiate({
+                    id: quiz.id,
+                    video_id: arg,
+                  })
+                );
+              });
+            }
+
+            // have to delete assignments only->(assignment will delete assignmentMarks),
             //assignments
-            dispatch(apiSlice.endpoints.getAssignmentWithVideoId.initiate(arg))
-              .unwrap()
-              .then((assignments) => {
-                assignments.forEach((assignment) => {
-                  dispatch(
-                    apiSlice.endpoints.deleteAssignment.initiate(assignment.id)
-                  );
-                });
-              })
-              .catch((err) => console.log(err));
+            const assignments = await dispatch(
+              apiSlice.endpoints.getAssignmentWithVideoId.initiate(arg)
+            ).unwrap();
+
+            if (assignments?.length > 0) {
+              // delete all assignments
+              assignments.forEach((assignment) => {
+                dispatch(
+                  apiSlice.endpoints.deleteAssignment.initiate(assignment.id)
+                );
+              });
+            }
           }
         } catch (error) {}
       },

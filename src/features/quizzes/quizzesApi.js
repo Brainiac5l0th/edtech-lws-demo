@@ -40,7 +40,6 @@ const quizzesApi = apiSlice.injectEndpoints({
             const quizMarks = await dispatch(
               apiSlice.endpoints.getQuizMarkWithVideoId.initiate(data?.video_id)
             ).unwrap();
-            console.log(quizMarks);
             if (quizMarks?.length > 0) {
               //if there is any quiz mark delete the quiz mark and notify the student
               quizMarks.forEach((quizMark) =>
@@ -172,8 +171,14 @@ const quizzesApi = apiSlice.injectEndpoints({
                 }
               )
             );
+            dispatch(
+              apiSlice.util.updateQueryData("getQuiz", arg.id, (draft) => {
+                draft.video_id = data.video_id;
+                draft.video_title = data.video_title;
+              })
+            );
 
-            //TODO: update all quizMark that have video_title
+            // update all quizMark that have video_title
             // videoId = data.video_id
             const quizMarks = await dispatch(
               apiSlice.endpoints.getQuizMarkWithVideoId.initiate(data?.video_id)
@@ -226,11 +231,12 @@ const quizzesApi = apiSlice.injectEndpoints({
             console.log(quizMarks);
             if (quizMarks?.length > 0) {
               //delete all quizMarks for this videoId and inform the student
-              quizMarks.forEach((quizMark) =>
+              quizMarks.forEach((quizMark) => {
+                console.log(`deleting ${quizMark.id}`);
                 dispatch(
                   apiSlice.endpoints.deleteQuizMark.initiate(quizMark?.id)
-                )
-              );
+                );
+              });
             }
           }
         } catch (error) {}
