@@ -74,7 +74,6 @@ const EditAssignmentForm = ({ setMode, id }) => {
             setError("Mark should be Divisible by 100. e.g. 100, 200")
         } else {
             const data = {
-                video_title,
                 title: `${removeTitleFilter(assignmentInfo.title)[0].trim()} - ${editAssignmentData.title}`,
                 totalMark: parseInt(editAssignmentData.totalMark),
             }
