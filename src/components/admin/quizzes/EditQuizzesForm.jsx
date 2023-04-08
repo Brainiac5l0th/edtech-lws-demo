@@ -51,7 +51,6 @@ const EditQuizzesForm = ({ mode, setMode, id }) => {
     const isLoading = [isUpdateQuizLoading, isUpdateWithOptionsLoading].some(Boolean);
     const isError = [isUpdateQuizError, isUpdateWithOptionsError].some(Boolean);
     const isSuccess = [isUpdateQuizSuccess, isUpdateWithOptionsSuccess].some(Boolean);
-    console.log(isUpdateQuizSuccess, isUpdateWithOptionsSuccess);
 
     //effects
     useEffect(() => {

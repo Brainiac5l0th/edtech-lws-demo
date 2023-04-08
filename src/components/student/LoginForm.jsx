@@ -19,7 +19,6 @@ const LoginForm = () => {
             resetForm();
             const lastVideo = localStorage?.getItem("lastVideo");
             const lastVideoId = lastVideo && JSON.parse(lastVideo)?.lastVideoId;
-            console.log(JSON.parse(lastVideo)?.lastVideoId);
             navigate(`course-video/${lastVideoId}`);
         } else if (isError) {
             if (responseError?.status === "FETCH_ERROR") setError("There was an server side Error!")

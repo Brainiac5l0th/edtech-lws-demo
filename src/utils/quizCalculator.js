@@ -16,7 +16,6 @@ const quizCalculator = (quizzes) => {
         checkedIndexes.push(index2);
       }
     });
-    console.log(`correctIndex:${correctIndexes} checkIndex:${checkedIndexes}`);
     if (_.isEqual(correctIndexes, checkedIndexes)) {
       mark = mark + 5;
       correct_answer += 1;

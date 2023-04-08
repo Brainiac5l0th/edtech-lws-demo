@@ -228,11 +228,9 @@ const quizzesApi = apiSlice.injectEndpoints({
             const quizMarks = await dispatch(
               apiSlice.endpoints.getQuizMarkWithVideoId.initiate(arg.video_id)
             ).unwrap();
-            console.log(arg.video_id);
             if (quizMarks?.length > 0) {
               //delete all quizMarks for this videoId and inform the student
               quizMarks.forEach((quizMark) => {
-                console.log(`deleting ${quizMark.id}`);
                 dispatch(
                   apiSlice.endpoints.deleteQuizMark.initiate({
                     id: quizMark?.id,

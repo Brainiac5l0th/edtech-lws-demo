@@ -1,7 +1,6 @@
 import React from 'react';
 
 const QuizDetails = ({ details }) => {
-    console.log(details);
     const { video_title: title, mark, totalMark, totalQuiz } = details || {};
     const percentage = Math.round((mark / totalMark) * 100);
 
