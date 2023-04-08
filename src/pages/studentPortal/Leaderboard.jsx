@@ -1,21 +1,31 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TopResults, UserResult } from '../../components/student';
+import apiSlice from '../../features/api/apiSlice';
 import { useGetAssignmentsMarkQuery } from '../../features/markAssignment/markAssignmentApi';
 import { useGetQuizMarksQuery } from '../../features/quizMark/quizMarkApi';
 import { useGetStudentsQuery } from '../../features/users/usersApi';
 import calculateTotalMark from '../../utils/calculateTotalMark';
 
 const Leaderboard = () => {
-
-    const { data: quizMarkAll, isQuizLoading, isQuizError } = useGetQuizMarksQuery();
-    const { data: assignmentMarkAll, isAssignmentLoading, isAssignmentError } = useGetAssignmentsMarkQuery();
-    const { data: students, isStudentsLoading, isStudentsError } = useGetStudentsQuery();
+    const dispatch = useDispatch();
+    const {
+        data: quizMarkAll,
+        isLoading: isQuizLoading,
+        isError: isQuizError } = useGetQuizMarksQuery();
+    const {
+        data: assignmentMarkAll,
+        isLoading: isAssignmentLoading,
+        isError: isAssignmentError } = useGetAssignmentsMarkQuery();
+    const {
+        data: students,
+        isLoading: isStudentsLoading,
+        isError: isStudentsError } = useGetStudentsQuery();
     // ["position", "Name", "total", "assignmentTotalMark", "quizTotalMark"]
     const { user: loggedInUser } = useSelector(state => state.auth);
 
-    const isLoading = [isQuizLoading, isAssignmentLoading, isStudentsLoading].every(Boolean)
-    const isError = [isQuizError, isAssignmentError, isStudentsError].every(Boolean)
+    const isLoading = [isQuizLoading, isAssignmentLoading, isStudentsLoading].some(Boolean)
+    const isError = [isQuizError, isAssignmentError, isStudentsError].some(Boolean)
 
     let finalResults = [];
     if (!isLoading && !isError) {
@@ -36,6 +46,15 @@ const Leaderboard = () => {
     }
     //effects
     useEffect(() => { document.title = "Leaderboard" }, [])
+
+    useEffect(() => {
+        //as the page load, the students information should be fetched first.
+        const studentFirst = async () => {
+            await dispatch(apiSlice.endpoints.getStudents.initiate());
+        }
+        studentFirst();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
 
     //sort them by number

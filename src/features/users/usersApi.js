@@ -11,6 +11,7 @@ const usersApi = apiSlice.injectEndpoints({
       query: () => ({
         url: `/users?role=student`,
       }),
+      providesTags: ["getStudents"],
     }),
   }),
 });

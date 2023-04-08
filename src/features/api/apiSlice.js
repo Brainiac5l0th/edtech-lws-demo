@@ -22,7 +22,7 @@ const apiSlice = createApi({
     }
     return result;
   },
-  tagTypes: ["getQuizMarkWithVideoId"],
+  tagTypes: ["getStudents", "getQuizzesWithVideoId", "getQuizMarkWithVideoId"],
   endpoints: (builder) => ({}),
 });
 

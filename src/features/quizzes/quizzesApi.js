@@ -15,6 +15,7 @@ const quizzesApi = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/quizzes?video_id=${id}`,
       }),
+      providesTags: ["getQuizzesWithVideoId"],
     }),
     addQuiz: builder.mutation({
       query: (data) => ({
@@ -22,11 +23,13 @@ const quizzesApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["getQuizMarkWithVideoId"],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const result = await queryFulfilled;
           const { data, meta } = result;
           if (data.id && meta.response?.status === 201) {
+            //update all quizz data
             dispatch(
               apiSlice.util.updateQueryData(
                 "getQuizzes",
@@ -36,10 +39,12 @@ const quizzesApi = apiSlice.injectEndpoints({
                 }
               )
             );
+
             //check if there is any quiz mark for this quiz
             const quizMarks = await dispatch(
-              apiSlice.endpoints.getQuizMarkWithVideoId.initiate(data?.video_id)
+              apiSlice.endpoints.getQuizMarkWithVideoId.initiate(arg.video_id)
             ).unwrap();
+
             if (quizMarks?.length > 0) {
               //if there is any quiz mark delete the quiz mark and notify the student
               quizMarks.forEach((quizMark) =>
@@ -209,6 +214,7 @@ const quizzesApi = apiSlice.injectEndpoints({
         url: `/quizzes/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["getQuizMarkWithVideoId", "getQuizzesWithVideoId"],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const result = await queryFulfilled;
@@ -231,16 +237,17 @@ const quizzesApi = apiSlice.injectEndpoints({
             const quizMarks = await dispatch(
               apiSlice.endpoints.getQuizMarkWithVideoId.initiate(arg.video_id)
             ).unwrap();
+
             if (quizMarks?.length > 0) {
               //delete all quizMarks for this videoId and inform the student
-              quizMarks.forEach((quizMark) => {
+              quizMarks.forEach((quizMark) =>
                 dispatch(
                   apiSlice.endpoints.deleteQuizMark.initiate({
                     id: quizMark?.id,
                     video_id: arg.video_id,
                   })
-                );
-              });
+                )
+              );
             }
           }
         } catch (error) {}
