@@ -44,7 +44,10 @@ const quizzesApi = apiSlice.injectEndpoints({
               //if there is any quiz mark delete the quiz mark and notify the student
               quizMarks.forEach((quizMark) =>
                 dispatch(
-                  apiSlice.endpoints.deleteQuizMark.initiate(quizMark.id)
+                  apiSlice.endpoints.deleteQuizMark.initiate({
+                    id: quizMark.id,
+                    video_id: data?.video_id,
+                  })
                 )
               );
             }
