@@ -15,7 +15,9 @@ const quizzesApi = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/quizzes?video_id=${id}`,
       }),
-      providesTags: ["getQuizzesWithVideoId"],
+      providesTags: (result, error, arg) => [
+        { type: "getQuizzesWithVideoId", id: arg },
+      ],
     }),
     addQuiz: builder.mutation({
       query: (data) => ({
@@ -23,12 +25,15 @@ const quizzesApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["getQuizMarkWithVideoId"],
+      invalidatesTags: (result, error, arg) => [
+        "getQuizMarkWithVideoId",
+        { type: "getQuizzesWithVideoId", id: arg.video_id },
+      ],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const result = await queryFulfilled;
           const { data, meta } = result;
-          if (data.id && meta.response?.status === 201) {
+          if (data?.id && meta.response?.status === 201) {
             //update all quizz data
             dispatch(
               apiSlice.util.updateQueryData(

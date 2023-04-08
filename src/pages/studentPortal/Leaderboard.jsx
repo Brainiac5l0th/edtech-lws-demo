@@ -56,28 +56,29 @@ const Leaderboard = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
     //sort them by number
     const sortByNumberDesc = (a, b) => Number(b.total) - Number(a.total)
     //function to set rank of student
-    const setPosition = (result, i) => {
-        if (i === 0) {
-            //highest one take first place
-            result.rank = 1;
-        }
-        else if (i > 0) {
-            let prevResult = result[i - 1];
-            if (prevResult?.total === result?.total) {
-                //if both user have same total number, they get same rank
-                result.rank = prevResult?.rank;
-            } else {
-                result.rank = i + 1;
+    const setPosition = (results) => {
+        const final = results?.map((result, i) => {
+            if (i === 0) {
+                result.rank = 1;
+            } else if (i > 0) {
+                const prevResult = results[i - 1];
+                if (prevResult?.total === result?.total) {
+                    result.rank = prevResult?.rank;
+                } else {
+                    result.rank = prevResult?.rank + 1;
+                }
             }
-        }
+            return result;
+        })
 
-        return result;
+        return final;
     }
-    const sortedfinalResultsWithRank = finalResults?.length > 0 && [...finalResults].sort(sortByNumberDesc).map(setPosition);
+
+    const sortedfinalResults = finalResults?.length > 0 && [...finalResults].sort(sortByNumberDesc)
+    const sortedfinalResultsWithRank = sortedfinalResults?.length > 0 && setPosition(sortedfinalResults);
 
     const userResult = sortedfinalResultsWithRank?.length > 0 && sortedfinalResultsWithRank.find(result => result.id === loggedInUser?.id);
 
