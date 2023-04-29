@@ -1,4 +1,8 @@
-> Note: This was my final project for `think in redux way batch-2`. You can checkout my **Report for overall course** [link](https://learnwithsumit.com/certificates/verify/LWSCTXN-QPAD26IV)
+```
+
+Note: This was my final project for `think in redux way batch-2`. You can checkout my **Report for overall course** [link](https://learnwithsumit.com/certificates/verify/LWSCTXN-QPAD26IV)
+
+```
 
 ## To run this Project:
 
