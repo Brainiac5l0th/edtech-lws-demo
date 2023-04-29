@@ -1,12 +1,15 @@
 ## To run this Project:
 
-`Download/pull` the `backend branch` from this repository and hit command :
+### <code style="color: aquamarine">`Download/pull` the `backend branch` from this repository and hit command :
 
+</code>
 ```
 npm start
 ```
 
-## To access:
+### Then go to [website](https://learnwithsumit.com)
+
+## To Access:
 
 `/admin` routes:
 
