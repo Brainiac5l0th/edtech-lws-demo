@@ -10,7 +10,17 @@ npm start
 
 ## To Access:
 
-`/admin` routes:
+```
+`/admin` routes ->
+email   : admin@learnwithsumit.com
+password: lws123456
+
+'/student' routes ->
+email   : shawon@learnwithsumit.com
+password: lws123456
+
+> You can also create user/student using `/register` route
+```
 
 ## যা যা করা হয়েছেঃ
 
