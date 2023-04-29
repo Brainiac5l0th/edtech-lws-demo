@@ -1,10 +1,10 @@
 ## To run this Project:
 
-### <code style="color: aquamarine">`Download/pull` the `backend branch` from this repository and hit command :
+### `Download/pull` the `backend branch` from this repository and hit command :
 
-</code>
 ```
-npm start
+<code style="color: aquamarine">npm start
+</code>
 ```
 
 ### Then go to [website](https://learnwithsumit.com)
