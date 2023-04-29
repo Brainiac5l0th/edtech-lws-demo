@@ -3,11 +3,10 @@
 ### `Download/pull` the `backend branch` from this repository and hit command :
 
 ```
-<code style="color: aquamarine">npm start
-</code>
+npm start
 ```
 
-### Then go to [website](https://learnwithsumit.com)
+### Then go to _[website]_(https://learnwithsumit.com)
 
 ## To Access:
 
