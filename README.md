@@ -1,3 +1,5 @@
+> Note: This was my final project for `think in redux way batch-2`. You can checkout my **Report for overall course** [link](https://learnwithsumit.com/certificates/verify/LWSCTXN-QPAD26IV)
+
 ## To run this Project:
 
 #### `Download/pull` the `backend branch` from this repository and hit command :
@@ -22,7 +24,7 @@ password: lws123456
 
 ```
 
-> You can also create user/student using `/register` route, but there will be single admin only.
+> You can also **create _user/student_** using `/register` route, but there will be single admin only.
 
 ## যা যা করা হয়েছেঃ
 
