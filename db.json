@@ -1,0 +1,73 @@
+{
+  "users": [
+    {
+      "email": "admin@learnwithsumit.com",
+      "password": "$2a$10$/TDPCTU28mFzKnSsW2pHSu512mpMKxLf8eiPbcTFLSNL87tbZBp3W",
+      "role": "admin",
+      "name": "LWS Admin",
+      "id": 1
+    },
+    {
+      "email": "shawon@learnwithsumit.com",
+      "password": "$2a$10$/TDPCTU28mFzKnSsW2pHSu512mpMKxLf8eiPbcTFLSNL87tbZBp3W",
+      "name": "Shawon Talukder",
+      "role": "student",
+      "id": 2
+    }
+  ],
+  "videos": [
+    {
+      "title": "testing",
+      "description": "adkajfhkjhfasdfl fdshdfhadskflhasdf dslfahsdhaflkhsdalf",
+      "views": "1.7M",
+      "url": "https://www.youtube.com/embed/wN0x9eZLix4",
+      "duration": "1:30:25",
+      "createdAt": "2019-11-30T00:00:00.000Z",
+      "id": 2
+    }
+  ],
+  "assignments": [
+    {
+      "title": "Assignment 2 - adasd asdas das das dasd",
+      "video_id": 2,
+      "video_title": "testing",
+      "totalMark": 100,
+      "id": 2
+    }
+  ],
+  "quizzes": [
+    {
+      "question": "How to print \"Hello World\" in js?",
+      "video_id": 2,
+      "video_title": "testing",
+      "options": [
+        {
+          "id": 1,
+          "option": "asdasd",
+          "isCorrect": false
+        },
+        {
+          "id": 2,
+          "option": "asdasd",
+          "isCorrect": true
+        }
+      ],
+      "id": 4
+    }
+  ],
+  "assignmentMark": [],
+  "quizMark": [
+    {
+      "student_id": 2,
+      "student_name": "Shawon Talukder",
+      "video_id": 2,
+      "video_title": "testing",
+      "totalQuiz": 1,
+      "totalCorrect": 1,
+      "totalWrong": 0,
+      "totalMark": 5,
+      "mark": 5,
+      "id": 1
+    }
+  ]
+}

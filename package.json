@@ -1,0 +1,20 @@
+{
+  "name": "json-server",
+  "description": "bind json-server-auth with json=server for authentication",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.1",
+    "json-server-auth": "^2.1.0"
+  },
+  "keywords": [],
+  "author": "Shawon Talukder",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
