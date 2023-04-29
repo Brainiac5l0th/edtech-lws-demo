@@ -1,26 +1,29 @@
 > Note: This was my final project for **`think in redux way batch-2`**. You can checkout my **overall course _Report_** [LINK](https://learnwithsumit.com/certificates/verify/LWSCTXN-QPAD26IV)
 
+## Technologies Used:
+**`React`, `Redux`, `RTK-Query`, `JSON-server`, `JSON-server-auth`, `react-router-dom`, `react-loader-spinner`**
 ## To run this Project:
 
 #### `Download/pull` the `backend branch` from this repository and hit command :
 
 ```
+npm install
 npm start
 ```
 
-### Then go to _[website](https://learnwithsumit.com)_
+## Go to _[website](https://shawon-talukder-final-assignment.netlify.app/)_
 
 ## To Access:
 
 ```
 
 "/admin" routes ->
-email   : admin@learnwithsumit.com
-password: lws123456
+email    : admin@learnwithsumit.com
+password : lws@123456
 
 "/student" routes ->
-email   : shawon@learnwithsumit.com
-password: lws123456
+email    : shawon@learnwithsumit.com
+password : lws@123456
 
 ```
 
