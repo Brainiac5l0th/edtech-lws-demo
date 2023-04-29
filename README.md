@@ -6,7 +6,7 @@
 npm start
 ```
 
-### Then go to _[website]_(https://learnwithsumit.com)
+### Then go to _[website](https://learnwithsumit.com)_
 
 ## To Access:
 
