@@ -20,10 +20,9 @@ password: lws123456
 email   : shawon@learnwithsumit.com
 password: lws123456
 
-
 ```
 
-> You can also create user/student using `/register` route
+> You can also create user/student using `/register` route, but there will be single admin only.
 
 ## যা যা করা হয়েছেঃ
 
